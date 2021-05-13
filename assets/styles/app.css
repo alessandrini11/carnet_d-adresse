@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#personne_sexe{
+    @apply flex justify-around items-center
+}

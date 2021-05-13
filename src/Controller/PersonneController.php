@@ -15,13 +15,19 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class PersonneController extends AbstractController
 {
+
     /**
      * @Route("/", name="personne_index", methods={"GET"})
      */
     public function index(PersonneRepository $personneRepository): Response
     {
+        $date = new \DateTime('now');
         return $this->render('personne/index.html.twig', [
-            'personnes' => $personneRepository->findAll(),
+            'personnes' => $personneRepository->findBy(array(),array(
+                'nom' => 'ASC'
+            )),
+            'date' => $date,
+            'menu' => 'dashboard'
         ]);
     }
 
@@ -39,12 +45,17 @@ class PersonneController extends AbstractController
             $entityManager->persist($personne);
             $entityManager->flush();
 
+            $this->addFlash(
+                'success',
+                ''.$personne->getNom().' a été ajouteé dans votre carnet'
+            );
             return $this->redirectToRoute('personne_index');
         }
 
         return $this->render('personne/new.html.twig', [
             'personne' => $personne,
             'form' => $form->createView(),
+            'menu' => 'nouveau'
         ]);
     }
 
@@ -69,6 +80,10 @@ class PersonneController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash(
+                'success',
+                ''.$personne->getNom().' a été modifié dans votre carnet'
+            );
             return $this->redirectToRoute('personne_index');
         }
 
@@ -88,7 +103,11 @@ class PersonneController extends AbstractController
             $entityManager->remove($personne);
             $entityManager->flush();
         }
-
+        $this->addFlash(
+            'danger',
+            ''.$personne->getNom().' a été supprimé de votre carnet'
+        );
         return $this->redirectToRoute('personne_index');
     }
+
 }

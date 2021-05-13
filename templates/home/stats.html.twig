@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'stats' %}
+{% block body %}
+    <div class="w-11/12 mx-auto">
+        <section></section>
+        <section>
+            <div class="grid grid-cols-2 md:grid-cols-4">
+                <div class="">
+                   <canvas id="sexe"></canvas>
+                </div>
+                <div class="">
+                    <span class="counter">30</span>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js" integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg==" crossorigin="anonymous"></script>
+    <script>
+
+        var sexe = document.getElementById("sexe").getContext('2d');
+        var myChart = new Chart(sexe, {
+            type: 'doughnut',
+            data: {
+                labels: {{ sexelabel | raw }},
+                datasets: [{
+                    label: '# of Votes',
+                    data: {{ sexecount | raw }},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}
+

@@ -1,4 +1,48 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="w-11/12 mx-auto">
+    <div class="mt-10 mx-auto" >
+        <div class="px-10 py-2 border rounded mb-10 sm:w-1/2 mx-auto bg-white">
+
+            {{ form_start(form) }}
+            <h2 class="text-xl my-5 font-bold text-gray-600">Ajouter une Personne</h2>
+            <div class="flex justify-between my-4 ">
+                <div class="flex flex-col w-1/2">
+                    <label for="">Nom</label>
+                    {{ form_row(form.nom,{'attr':{'class':'w-full border boder-4 border-black py-1 px-3'}}) }}
+                </div>
+                <div class="flex flex-col w-1/2 ml-4">
+                    <label for="">Prenom</label>
+                    {{ form_row(form.prenom,{'attr':{'class':'w-full border boder-4 border-black py-1 px-3'}}) }}
+                </div>
+            </div>
+            <div class="flex flex-col my-3">
+                <label for="">DateNaissance</label>
+                {{ form_row(form.dateNaissance,{'attr':{'class':' border boder-4 border-black py-1 px-3'}}) }}
+            </div>
+            <div class="flex flex-col my-3">
+                <label for="">Sexe</label>
+                {{ form_row(form.sexe) }}
+            </div>
+            <div class="flex flex-col my-3">
+                <label for="">Email</label>
+                {{ form_row(form.email,{'attr':{'class':'w-full border boder-4 border-black py-1 px-3'}}) }}
+            </div>
+            <div class="grid grid-cols-2 gap-5">
+                <div class="flex flex-col my-3">
+                    <label for="" class="sm:hidden">Fixe</label>
+                    <label for="" class="hidden sm:block">Numéro Fixe</label>
+                    {{ form_row(form.numeroFixe,{'attr':{'class':'w-full border boder-4 border-black py-1 px-3'}}) }}
+                </div>
+                <div class="flex flex-col my-3">
+                    <label for="" class="sm:hidden"> Portable</label>
+                    <label for="" class="hidden sm:block">Numéro Portable</label>
+                    {{ form_row(form.numeroPortable,{'attr':{'class':'w-full border boder-4 border-black py-1 px-3'}}) }}
+                </div>
+            </div>
+            <div class="flex flex-col my-3">
+                <button class="text-white bg-purple-800 py-3">Enregistrer</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+

@@ -3,44 +3,31 @@
 {% block title %}Personne{% endblock %}
 
 {% block body %}
-    <h1>Personne</h1>
+    <div class="p-10  ">
+        <!--Card 1-->
+        <div class="max-w-sm mx-auto rounded overflow-hidden shadow-lg">
+            <div id="" class="aspect-w-4 aspect-h-4">
+                <img src="{{ personne.img }}" alt="" class=" object-cover shadow-lg rounded-lg">
+            </div>
+            <div class="px-6 py-4 bg-white">
+                <div class="font-bold text-xl mb-2">{{ personne.nom }} {{ personne.prenom }}</div>
+                <p class="text-gray-700 text-base">
+                    <i class="fas fa-venus-mars"></i> {{ personne.sexe.nom }}
+                </p>
+                <p class="text-gray-700 text-base">
+                    <i class="fas fa-calendar-alt"></i> {{ personne.dateNaissance | date('d M Y') }}
+                </p>
+                <p class="text-gray-700 text-base">
+                    <i class="fas fa-at"></i> {{ personne.email }}
+                </p>
+                <p class="text-gray-700 text-base">
+                    <i class="fas fa-mobile-alt"></i> {{ personne.numeroPortable }}
+                </p>
+                <p class="text-gray-700 text-base">
+                    <i class="fas fa-phone"></i> {{ personne.numeroFixe }}
+                </p>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ personne.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ personne.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ personne.prenom }}</td>
-            </tr>
-            <tr>
-                <th>DateNaissance</th>
-                <td>{{ personne.dateNaissance ? personne.dateNaissance|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ personne.email }}</td>
-            </tr>
-            <tr>
-                <th>NumeroFixe</th>
-                <td>{{ personne.numeroFixe }}</td>
-            </tr>
-            <tr>
-                <th>NumeroPortable</th>
-                <td>{{ personne.numeroPortable }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('personne_index') }}">back to list</a>
-
-    <a href="{{ path('personne_edit', {'id': personne.id}) }}">edit</a>
-
-    {{ include('personne/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

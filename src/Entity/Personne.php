@@ -52,6 +52,17 @@ class Personne
      */
     private $numeroPortable;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $img;
+
+    public function __construct()
+    {
+        $this->img = "https://picsum.photos/id/237/200/300";
+        // TODO: Implement __clone() method.
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +148,18 @@ class Personne
     public function setNumeroPortable(int $numeroPortable): self
     {
         $this->numeroPortable = $numeroPortable;
+
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(string $img): self
+    {
+        $this->img = $img;
 
         return $this;
     }

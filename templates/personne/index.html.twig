@@ -3,43 +3,106 @@
 {% block title %}Personne index{% endblock %}
 
 {% block body %}
-    <h1>Personne index</h1>
+    <div class="overflow-x-auto">
+        <div class="min-w-screen min-h-screen flex justify-center bg-gray-100 font-sans ">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>DateNaissance</th>
-                <th>Email</th>
-                <th>NumeroFixe</th>
-                <th>NumeroPortable</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for personne in personnes %}
-            <tr>
-                <td>{{ personne.id }}</td>
-                <td>{{ personne.nom }}</td>
-                <td>{{ personne.prenom }}</td>
-                <td>{{ personne.dateNaissance ? personne.dateNaissance|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ personne.email }}</td>
-                <td>{{ personne.numeroFixe }}</td>
-                <td>{{ personne.numeroPortable }}</td>
-                <td>
-                    <a href="{{ path('personne_show', {'id': personne.id}) }}">show</a>
-                    <a href="{{ path('personne_edit', {'id': personne.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('personne_new') }}">Create new</a>
+            <div class="w-full lg:w-5/6">
+                <h1 class="ml-5 md:ml-0 text-3xl font-sans">Carnet d'Adresse</h1>
+                {% for message in app.flashes('success') %}
+                    <div class="py-3 px-6 text-center">
+                        <span class="bg-green-200 text-green-600 py-1 px-3 w-full rounded-full">{{ message }}</span>
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('danger') %}
+                    <div class="py-3 px-6 text-center">
+                        <span class="bg-red-200 text-red-600 py-1 px-3 w-full rounded-full">{{ message }}</span>
+                    </div>
+                {% endfor %}
+                <div class="bg-white shadow-md rounded my-6">
+                    <table class="min-w-max w-full table-auto">
+                        <thead>
+                        <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th class="py-3 px-6 text-left">id</th>
+                            <th class="py-3 px-6 text-left">Nom</th>
+                            <th class="py-3 px-6 text-center">Age</th>
+                            <th class="py-3 px-6 text-center">Sexe</th>
+                            <th class="py-3 px-6 text-center">Email</th>
+                            <th class="py-3 px-6 text-center">Numéro Fixe</th>
+                            <th class="py-3 px-6 text-center">Numéro Portable</th>
+                            <th class="py-3 px-6 text-center">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-gray-600 text-sm font-light">
+                        {% for personne in personnes %}
+                        <tr class="border-b border-gray-200 hover:bg-gray-100">
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="mr-2">
+                                        {{ personne.id }}
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left">
+                                <div class="flex items-center">
+                                    <div class="mr-2">
+                                        <img class="w-6 h-6 rounded-full" src="{{ personne.img }}"/>
+                                    </div>
+                                    <span>{{ personne.nom }} {{ personne.prenom }}</span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-left whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="mr-2">
+                                        {{ date | date('Y') - personne.dateNaissance | date('Y') }} ans
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                                {{ personne.sexe.nom }}
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                                <div class="flex item-center justify-center">
+                                    +{{ personne.numeroFixe}}
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                                <div class="flex item-center justify-center">
+                                    +{{ personne.numeroPortable }}
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                                <div class="flex item-center justify-center">
+                                    {{ personne.email}}
+                                </div>
+                            </td>
+                            <td class="py-3 px-6 text-center">
+                                <div class="flex item-center justify-center">
+                                    <div class="w-5 mr-2 transform hover:scale-110">
+                                        <a href="{{ path('personne_show',{'id': personne.id}) }}" class="  hover:text-purple-500 ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="w-5 mr-2 transform hover:scale-110">
+                                        <a href="{{ path('personne_edit',{'id' : personne.id }) }}" class=" hover:text-purple-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class=" mr-2 transform hover:scale-110">
+                                        {{ include('personne/_delete_form.html.twig') }}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
